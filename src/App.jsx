@@ -1,13 +1,13 @@
-import { memo, useEffect, useState } from 'react'
+import { memo, useCallback, useEffect, useState } from 'react'
 
 
 function App() {
   const [count, setCount] = useState(0)
   const [currentValue, setCurrentValue] = useState(1)
 
-  function logger() {
+  const logger=useCallback(function () {
     console.log("Inside Logger function")
-  }
+  },[])
 
   return (
     <div>
