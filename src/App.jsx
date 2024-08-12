@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-
+import axios from 'axios'
 
 function App() {
   const [todos, setTodos] = useState([
@@ -25,11 +25,9 @@ function App() {
 
   useEffect(() => {
 
-    fetch("https://sum-server.100xdevs.com/todos").
-    then(async (res) => {
-      const json = await res.json()
-      console.log(json)
-      setTodos(json.todos)
+    axios.get("https://sum-server.100xdevs.com/todos").
+    then(function(response){
+      setTodos(response.data.todos)
     })
   }, [])
 
