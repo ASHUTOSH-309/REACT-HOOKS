@@ -22,25 +22,43 @@ function App() {
 
     },
   ])
-
-  useEffect(() => {
-
-    axios.get("https://sum-server.100xdevs.com/todos").
-    then(function(response){
-      setTodos(response.data.todos)
-    })
-  }, [])
-
+  /* 
+    useEffect(() => {
+  
+      axios.get("https://sum-server.100xdevs.com/todos").
+        then(function (response) {
+          setTodos(response.data.todos)
+        })
+    }, [])
+   */
 
 
   return (
     <>
-      {
-        todos.map(todo => <Todo key={todo.id} title={todo.title} description={todo.description} />)
-
-      }
+          <FetchTodo id={2} setTodos={setTodos} todos={todos} />
     </>
   )
+}
+
+function FetchTodo({ id, setTodos,todos }) {
+
+  
+
+  useEffect(() => {
+    axios.get(`https://sum-server.100xdevs.com/todo?id=${id}`).
+      then(function (response) {
+        setTodos([response.data.todo])
+      })
+  }, [])
+
+  return <div>
+
+    {
+      todos.map(todo => <Todo key={todo.id} title={todo.title} description={todo.description} />)
+
+    }
+
+  </div>
 }
 
 
@@ -51,8 +69,6 @@ function Todo({ title, description }) {
     <h1>{title}</h1>
     <h4>{description}</h4>
   </div>
-
-
 }
 
 export default App
