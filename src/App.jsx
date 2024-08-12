@@ -1,17 +1,27 @@
-import { useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 
 
- function App() {
+function App() {
   const [count, setCount] = useState(0)
-  const[currentValue,setCurrentValue]=useState(1)
+  const [currentValue, setCurrentValue] = useState(1)
+
+  function logger() {
+    console.log("Inside Logger function")
+  }
 
   return (
     <div>
-      <input type="text" onChange={(e)=>setCurrentValue(parseInt(e.target.value))} />
-      <h4>Sum is {currentValue*(currentValue+1)/2.0}</h4>
+      <ChildComponent myfunc={logger} />
       <button onClick={() => setCount(count + 1)}>{count}</button>
     </div>
   )
 }
+
+const ChildComponent=memo( ({ myfunc })=> {
+  return <div>
+    <h1>Inside Child Component</h1>
+    {myfunc()}
+  </div>
+})
 
 export default App;
