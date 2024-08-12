@@ -2,26 +2,7 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 
 function App() {
-  const [todos, setTodos] = useState([
-    {
-      id: 1,
-      title: "Todo 1",
-      description: "Description 1"
 
-    },
-    {
-      id: 2,
-      title: "Todo 2",
-      description: "Description 2"
-
-    },
-    {
-      id: 3,
-      title: "Todo 3",
-      description: "Description 3"
-
-    },
-  ])
   /* 
     useEffect(() => {
   
@@ -35,29 +16,27 @@ function App() {
 
   return (
     <>
-          <FetchTodo id={2} setTodos={setTodos} todos={todos} />
+          <FetchTodo id={2} />
     </>
   )
 }
 
-function FetchTodo({ id, setTodos,todos }) {
+function FetchTodo({ id }) {
 
-  
+  const [todos,setTodos]=useState({})
 
   useEffect(() => {
     axios.get(`https://sum-server.100xdevs.com/todo?id=${id}`).
       then(function (response) {
-        setTodos([response.data.todo])
+        setTodos(response.data.todo)
       })
   }, [])
 
   return <div>
 
-    {
-      todos.map(todo => <Todo key={todo.id} title={todo.title} description={todo.description} />)
+    <Todo key={todos.id} title={todos.title} description={todos.description} />
 
-    }
-
+    
   </div>
 }
 
